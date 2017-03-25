@@ -31,7 +31,7 @@ document.getElementById("text").onkeydown = function(e) {
 
     };
     //var data = encodeURIComponent(JSON.stringify(buffer));
-    if(stroke["key"] == "Backspace")
+    if(stroke["key"] == "")
     {
     	buffer = [];
     	document.getElementById("text").value = "";
@@ -72,7 +72,7 @@ document.getElementById("text").onkeyup = function(e) {
 
     //var data = encodeURIComponent(JSON.stringify(buffer));
 
-    if(stroke["key"] == "Backspace")
+    if(stroke["key"] == "")
     {
     	buffer = [];
     	document.getElementById("text").value = "";

