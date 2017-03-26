@@ -22,8 +22,15 @@ var upbuffer =[];
 
 var records=function()
 {
-  localStorage.setItem("keylogs", JSON.stringify(buffer));
-  console.log(localStorage.getItem("keylogs"));
+  var obj;
+  var output_line = "";
+  for(i = 0; i < buffer.length; i++){
+  	obj = buffer[i];
+  	output_line = output_line.concat(obj.time+", "+obj.kftime+", "+obj.ftime+", ");
+  }
+  // localStorage.setItem("keylogs", JSON.stringify(buffer));
+  // console.log(localStorage.getItem("keylogs"));
+  console.log(output_line.slice(0,-2));
   document.getElementById("text").value = ""
 }
 
