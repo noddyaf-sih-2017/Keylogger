@@ -52,7 +52,7 @@ document.getElementById("text").onkeydown = function(e) {
     	records()
     }
 
-    else if(stroke["key"] != "Shift"){
+    else if(stroke["key"] != "Shift" && stroke["key"] != "CapsLock"){
 
         downbuffer.push(stroke);
         
