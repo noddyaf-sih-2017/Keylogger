@@ -24,6 +24,7 @@ var records=function()
 {
   localStorage.setItem("keylogs", JSON.stringify(buffer));
   console.log(localStorage.getItem("keylogs"));
+  document.getElementById("text").value = ""
 }
 
 document.getElementById("text").onkeydown = function(e) {
@@ -43,6 +44,12 @@ document.getElementById("text").onkeydown = function(e) {
         downbuffer=[];
         upbuffer=[];
         document.getElementById("text").value = "";
+    }
+
+
+
+    else if(stroke["key"] == "Enter"){
+    	records()
     }
 
     else if(stroke["key"] != "Shift"){
@@ -70,7 +77,7 @@ document.getElementById("text").onkeyup = function(e) {
         buffer = [];
         document.getElementById("text").value = "";
     }
-    else if(stroke["key"] != "Shift")
+    else if(stroke["key"] != "Enter" && stroke["key"] != "Shift")
     {
         upbuffer.push(stroke);
         var up = upbuffer.shift();
