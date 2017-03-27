@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Time to log some keys!</title>
+
+    <style>
+      body{
+        position: relative;
+        font-family: sans-serif;
+      }
+      #text{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        margin-top:70px;
+        font-size: 1.5em;
+        min-width: 500px;
+        border: none;
+        outline: none;
+        color: #2E282A;
+        border-bottom: solid #2E282A 4px;
+      }
+
+      #demo{
+        width: 80%;
+        height: 200px;
+        overflow-y: auto;
+        overflow-wrap: break-word;
+        background: #2E282A;
+        color: #EDB88B;
+        position: relative;
+        margin: 0 auto;
+        margin-top: 10px;
+        padding: 30px 18px;
+        border: solid black 2px;
+      }
+
+      .text-contain{
+        position: relative;
+        display: block;
+        height: auto;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      h5{
+        position: relative;
+        margin: 0 auto;
+        margin-top: 10px;
+        font-size: 14px;
+        display: block;
+        color: #2E282A;
+        
+      }
+
+    </style>
+  </head>
+  <body>
+    <input type="text" id="text"/>
+    <div class="text-contain">
+    <h5> Output </h5>
+    </div>
+    <p id="demo"> </p>
+  </body>
+
+  <script>
+    require('./renderer.js')
+    require('./logger.js')
+  </script>
+</html>
