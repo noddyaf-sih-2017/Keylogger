@@ -25,10 +25,7 @@ for r in res:
     for k in r:
         fin.append(k)
         
-fin = np.array(fin)
-
 print fin
-print fin.shape
 
 with open('processed.pkl', 'w') as f:
 	pickle.dump(fin, f)
