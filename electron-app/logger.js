@@ -128,7 +128,6 @@ document.getElementById("text").onkeyup = (e) => {
 
     window.setInterval(() =>{
         document.getElementById("demo").innerHTML = JSON.stringify(buffer)
-
     }, 1000)
 }
 
