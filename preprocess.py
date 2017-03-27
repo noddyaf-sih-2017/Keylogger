@@ -12,12 +12,11 @@ for v in arr:
     v = '['+v +']'
     try:
         res.append(np.array(json.loads(v)).ravel())
-        
+
     except ValueError:
     	print 'Invalid JSON'
         continue
 
-print res
 res = np.array(res)
 res = res.ravel()
 fin = []
@@ -27,7 +26,9 @@ for r in res:
         fin.append(k)
         
 fin = np.array(fin)
-print fin.shape
+
 print fin
+print fin.shape
+
 with open('processed.pkl', 'w') as f:
 	pickle.dump(fin, f)
