@@ -7,9 +7,13 @@ let newstroke = new Object()
 let downbuffer =[]
 let upbuffer =[]
 let writebuf = []
+
 const filename = 'tmp.txt'
 const outputdir = 'data'
 const createfile = path.join(__dirname, outputdir, filename)
+
+const password = 'Hello good sir'
+const textField = document.getElementById('text')
 
 if (!fs.existsSync(outputdir)){
     fs.mkdirSync(outputdir)
@@ -18,7 +22,13 @@ if (!fs.existsSync(outputdir)){
 // Uncomment this line to create new files every render
 // let createfile = './data/tmp' + Date.now() + '.txt'
 
+let getFileName = () =>{
+    let username = document.getElementById('username').value
+    if(!username || username.length == 0)
+        username = 'anon'
 
+    return path.join(__dirname, outputdir, 'data-' + username + '.txt')
+}
 
 let records= () =>
 {
@@ -31,12 +41,24 @@ let records= () =>
   // localStorage.setItem("keylogs", JSON.stringify(buffer))
   // console.log(localStorage.getItem("keylogs"))
   console.log(output_line.slice(0,-2))
-  document.getElementById("text").value = ""
+
+  if(textField.value != password){
+    return false
+  }
+
+  if(writebuf.length > 0){
+        fs.appendFile(getFileName(), JSON.stringify(writebuf)+',', (err)=>{
+            if(err) {
+                return console.log(err)
+            }
+            writebuf  = []
+        })
+    }
+
+  textField.value = ""
 }
 
-document.getElementById("text").onkeydown = (e) =>{
-
-
+textField.onkeydown = (e) =>{
     let timestamp = Date.now() | 0
     let stroke = {
         key: e.key,
@@ -47,10 +69,11 @@ document.getElementById("text").onkeydown = (e) =>{
     if(stroke["key"] == "Backspace")
     {   
         
-        buffer = []
-        downbuffer=[]
-        upbuffer=[]
-        document.getElementById("text").value = ""
+    //     buffer = []
+    //     downbuffer=[]
+    //     upbuffer=[]
+    //     writebuf = []
+    //     document.getElementById("text").value = ""
     }
 
 
@@ -68,7 +91,7 @@ document.getElementById("text").onkeydown = (e) =>{
 
 
 
-document.getElementById("text").onkeyup = (e) => {
+textField.onkeyup = (e) => {
  
     let timestamp = Date.now() | 0
     let stroke = {
@@ -79,8 +102,8 @@ document.getElementById("text").onkeyup = (e) => {
     
     if(stroke["key"] == "Backspace")
     {
-        buffer = []
-        document.getElementById("text").value = ""
+        // buffer = []
+        // document.getElementById("text").value = ""
     }
 
     else if(stroke["key"] != "Enter" && stroke["key"] != "Shift")
@@ -130,17 +153,3 @@ document.getElementById("text").onkeyup = (e) => {
         document.getElementById("demo").innerHTML = JSON.stringify(buffer)
     }, 1000)
 }
-
-
-// Write to file every 1000 seconds
-let writeInterval = setInterval(()=>{
-    if(writebuf.length > 0){
-        fs.appendFile(createfile, JSON.stringify(writebuf), (err)=>{
-            if(err) {
-                return console.log(err)
-            }
-
-            writebuf  = []
-        })
-    }
-}, 1000)
