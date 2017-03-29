@@ -1,6 +1,9 @@
 # Install dependencies
 npm install
+
 pip install -r requirements.txt
+
+
 # Run the app
 npm start
 
