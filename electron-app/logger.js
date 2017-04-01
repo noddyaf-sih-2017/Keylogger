@@ -69,11 +69,11 @@ textField.onkeydown = (e) =>{
     if(stroke["key"] == "Backspace")
     {   
         
-    //     buffer = []
-    //     downbuffer=[]
-    //     upbuffer=[]
-    //     writebuf = []
-    //     document.getElementById("text").value = ""
+         buffer = []
+         downbuffer=[]
+         upbuffer=[]
+         writebuf = []
+         document.getElementById("text").value = ""
     }
 
 
@@ -102,8 +102,8 @@ textField.onkeyup = (e) => {
     
     if(stroke["key"] == "Backspace")
     {
-        // buffer = []
-        // document.getElementById("text").value = ""
+         buffer = []
+         document.getElementById("text").value = ""
     }
 
     else if(stroke["key"] != "Enter" && stroke["key"] != "Shift")
