@@ -3,6 +3,7 @@ const path = require('path')
 
 let buffer = [] 
 let oldstroke = new Object()
+let oldstroke1 = new Object()
 let newstroke = new Object()
 let downbuffer =[]
 let upbuffer =[]
@@ -139,9 +140,11 @@ textField.onkeyup = (e) => {
             ftime=null
         }
 
-        oldstroke=up
 
         let time = up.time-down.time
+        let uutime=oldstroke.time-up.time;
+        let dutime=oldstroke1.time-up.time;
+        let ddtime=oldstroke1.time-down.time;
         let kftime= ftime+time
         
         let _stroke = new Object()
@@ -150,10 +153,16 @@ textField.onkeyup = (e) => {
        
         _stroke.time=time
         _stroke.ftime=ftime
+
+        _stroke.uutime=(-uutime);
+        _stroke.ddtime=(-ddtime);
+        _stroke.dutime=(-dutime);
     
         buffer.push(_stroke)
         writebuf.push(_stroke)
 
+        oldstroke=up
+        oldstroke1 = down
 
     }
 
