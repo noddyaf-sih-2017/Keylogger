@@ -44,10 +44,11 @@ else:
 	username = sys.argv[1]
 	password = sys.argv[2]
 
-with open('./electron-app/data/data-' + username + '.txt') as fS:
+print 'here'
+with open('./data/data-' + username + '.txt') as fS:
     raw = '[' + fS.read()[:-1] + ']'
     dataS = (json.loads(raw))
-
+print 'also here'
 finS = formatData(dataS, password)
 dfS = pd.DataFrame(finS)
 

@@ -7,7 +7,7 @@ const password = 'Hello good sir'
 
 document.getElementById('save').addEventListener('click', ()=>{
 	let username = document.getElementById('username').value
-	const process = spawn('python', [path.join(__dirname, '../preprocess.py') , username, password])
+	const process = spawn('python', [path.join(__dirname, './preprocess.py') , username, password])
 	process.stdout.on('data', function (data){
 		console.log(data)
 		console.log(new TextDecoder("utf-8").decode(data))
