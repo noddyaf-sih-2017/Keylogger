@@ -24,10 +24,7 @@ def formatData(dataS, password):
                 finS[ind][keyVal+'time'] = i['time']
                 curr+=1
             else:
-                try:
-                    finS[ind]['m'] += 1
-                except:
-                    finS[ind]['m'] = 1
+                continue
             
         finS[ind]['totaltime'] = sum([x['time'] for x in r])
 

@@ -58,6 +58,9 @@ let records= () =>
                 return console.log(err)
             }
             writebuf  = []
+            buffer = []
+            downbuffer=[]
+            upbuffer=[]
         })
     }
 
