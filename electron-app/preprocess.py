@@ -41,13 +41,16 @@ else:
 	username = sys.argv[1]
 	password = sys.argv[2]
 
-print 'here'
 with open('./data/data-' + username + '.txt') as fS:
     raw = '[' + fS.read()[:-1] + ']'
     dataS = (json.loads(raw))
-print 'also here'
+
 finS = formatData(dataS, password)
 dfS = pd.DataFrame(finS)
+
+# drop unnecessary columns
+dfS.drop(['p-0-ftime'], axis=1, inplace=True)
+dfS.fillna(dfS.mean(), inplace=True)
 
 if not os.path.exists('./output/csv/'):
     os.makedirs('./output/csv/')
