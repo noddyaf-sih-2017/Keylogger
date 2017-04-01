@@ -11,25 +11,9 @@ def formatData(dataS, password):
     ind = 0
     passwordarr = list(password)
     for r in dataS:
-        curr = 0
-        finS.append({})
         for i in r:
-            if curr == len(passwordarr):
-                break
-                
-            if i['key'] == passwordarr[curr]:
-                keyVal = i['key'] + '-' +str(curr) + '-'
-                finS[ind][keyVal+'kftime'] = i['kftime']
-                finS[ind][keyVal+'ftime'] = i['ftime']
-                finS[ind][keyVal+'time'] = i['time']
-                curr+=1
-            else:
-                continue
-            
-        finS[ind]['totaltime'] = sum([x['time'] for x in r])
-
-        ind += 1
-        
+            finS.append(i)
+                    
     return finS
     
 if(len(sys.argv) is not 3):
@@ -49,7 +33,6 @@ finS = formatData(dataS, password)
 dfS = pd.DataFrame(finS)
 
 # drop unnecessary columns
-dfS.drop(['p-0-ftime'], axis=1, inplace=True)
 dfS.fillna(dfS.mean(), inplace=True)
 
 if not os.path.exists('./output/csv/'):

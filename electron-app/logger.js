@@ -12,8 +12,6 @@ let writebuf = []
 const filename = 'tmp.txt'
 const outputdir = 'data'
 const createfile = path.join(__dirname, outputdir, filename)
-
-const password = 'pass@123'
 const textField = document.getElementById('text')
 
 if (!fs.existsSync(outputdir)){
@@ -43,16 +41,6 @@ let records= () =>
   // console.log(localStorage.getItem("keylogs"))
   console.log(output_line.slice(0,-2))
 
-  if(textField.value != password){
-    buffer = []
-    downbuffer=[]
-    upbuffer=[]
-    writebuf = []
-    document.getElementById("text").value = ""
-
-    return false
-  }
-
   if(writebuf.length > 0){
         fs.appendFile(getFileName(), JSON.stringify(writebuf)+',', (err)=>{
             if(err) {
@@ -72,23 +60,24 @@ textField.onkeydown = (e) =>{
     let timestamp = Date.now() | 0
     let stroke = {
         key: e.key,
+        keyCode: e.which,
         time: timestamp
 
     }
     
-    if(stroke["key"] == "Backspace")
-    {   
+    // if(stroke["key"] == "Backspace")
+    // {   
         
-         buffer = []
-         downbuffer=[]
-         upbuffer=[]
-         writebuf = []
-         document.getElementById("text").value = ""
-    }
+    //      buffer = []
+    //      downbuffer=[]
+    //      upbuffer=[]
+    //      writebuf = []
+    //      document.getElementById("text").value = ""
+    // }
 
 
 
-    else if(stroke["key"] == "Enter"){
+    if(stroke["key"] == "Enter"){
     	records()
     }
 
@@ -106,17 +95,18 @@ textField.onkeyup = (e) => {
     let timestamp = Date.now() | 0
     let stroke = {
         key: e.key,
+        keyCode: e.which,
         time: timestamp
     }
 
     
-    if(stroke["key"] == "Backspace")
-    {
-         buffer = []
-         document.getElementById("text").value = ""
-    }
+    // if(stroke["key"] == "Backspace")
+    // {
+    //      buffer = []
+    //      document.getElementById("text").value = ""
+    // }
 
-    else if(stroke["key"] != "Enter" && stroke["key"] != "Shift")
+    if(stroke["key"] != "Enter" && stroke["key"] != "Shift")
     {
         upbuffer.push(stroke)
         let up = upbuffer.shift()
@@ -128,9 +118,14 @@ textField.onkeyup = (e) => {
 
 
         */
+        let ftime
+        try{
+            ftime=-(oldstroke.time-down.time)
+        }
+        catch(e){
+            ftime = 0
+        }
 
-    
-        let ftime=-(oldstroke.time-down.time)
         if (ftime<0)
         {
             ftime=0
@@ -148,7 +143,7 @@ textField.onkeyup = (e) => {
         let kftime= ftime+time
         
         let _stroke = new Object()
-        _stroke.key=down.key
+        _stroke.key=down.keyCode
         _stroke.kftime=kftime
        
         _stroke.time=time
