@@ -12,7 +12,7 @@ const filename = 'tmp.txt'
 const outputdir = 'data'
 const createfile = path.join(__dirname, outputdir, filename)
 
-const password = 'Hello good sir'
+const password = 'pass@123'
 const textField = document.getElementById('text')
 
 if (!fs.existsSync(outputdir)){
@@ -43,6 +43,12 @@ let records= () =>
   console.log(output_line.slice(0,-2))
 
   if(textField.value != password){
+    buffer = []
+    downbuffer=[]
+    upbuffer=[]
+    writebuf = []
+    document.getElementById("text").value = ""
+
     return false
   }
 
